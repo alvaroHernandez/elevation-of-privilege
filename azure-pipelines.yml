@@ -37,6 +37,6 @@ stages:
           azureSubscription: 'Pre Agendamiento (ba10e75d-9812-4287-851a-a380629158f0)'
           appType: 'webAppContainer'
           WebAppName: 'elevation-of-privilege'
-          DockerNamespace: 'elevation-of-privilege.azurecr.io'
+          DockerNamespace: 'preagendamiento.azurecr.io.azurecr.io'
           DockerRepository: 'elevation-of-privilege'
           DockerImageTag: '$(tag)'
