@@ -16,7 +16,7 @@ stages:
     steps:
     - task: CmdLine@2
       inputs:
-        script: 'sed -i -e "s/REACT_APP_LANGUAGE/$(LANGUAGE)/g" $(System.DefaultWorkingDirectory)/**/.env'
+        script: 'sed -i -e "s/REACT_APP_LANGUAGE/$(LANGUAGE)/g" $(System.DefaultWorkingDirectory)/.env'
         failOnStderr: true
       
     - task: Docker@2
