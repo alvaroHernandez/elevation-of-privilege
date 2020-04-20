@@ -1,4 +1,4 @@
-let definitions = {
+export const definitions = {
     "S2": "SPANISHAn attacker could squat on the random port or socket that the server normally uses",
     "S3": "An attacker could try one credential after another and there's nothing to slow them down (online or offline)",
     "S4": "An attacker can anonymously connect, because we expect authentication to be done at a higher level",
@@ -73,11 +73,4 @@ let definitions = {
     "EQ": "You include user-generated content within your page, possibly including the content of random URLs",
     "EK": "An attacker can inject a command that the system will run at a higher privilege level",
     "EA": "You've invented a new Elevation of Privilege attack",
-  }
-  
-  export function getThreatDescription(card) {
-    if (card in definitions) {
-      return definitions[card];
-    }
-    return "";
   }
