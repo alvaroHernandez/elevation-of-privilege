@@ -9,6 +9,22 @@ import Helmet from 'react-helmet';
 import Logo from '../logo/logo';
 import { Link } from 'react-router-dom'
 
+const { LANGUAGE } = require('../../constants');
+
+const { 
+  INTRODUCTION_MESSAGE,
+  NON_EMPTY_NAME_MESSAGE,
+  SELECT_MODEL_MESSAGE,
+  DOWNLOAD_DEMO_MODEL_MESSAGE,
+  TO_TRY_OUT_MESSAGE,
+  PROCEED_BUTTON_TEXT,
+  HOW_PLAYERS_WILL_JOIN_MESSAGE,
+  DISTRIBUTE_LINKS_AMONG_PLAYERS_MESSAGE,
+  LINKS_ARE_UNIQUE_MESSAGE,
+  NUMBER_OF_PLAYERS_FORM_LABEL,
+  PLAYER_NAME_FORM_LABEL,
+  MODEL_FORM_LABEL } = require(`../../strings/${LANGUAGE}/createGame.js`);
+
 class Create extends React.Component {
 
   constructor(props) {
@@ -126,14 +142,12 @@ class Create extends React.Component {
     if (!this.state.created) {
       createForm = (
         <div>
-          <p>Elevation of Privilege (EoP) is the easy way to get started and learn threat modeling. It is a card game that developers, architects or security experts can play.</p>
-          <p>To learn more about the game, navigate to the <Link to="/about">about page</Link>.</p>
-          <small className="text-muted">To start playing, select the number of players and enter their names.</small>
+          {INTRODUCTION_MESSAGE}
           <hr />
           <Form>
             <FormGroup row>
-              <Label for="players" sm={2}>Players</Label>
-              <Col sm={10}>
+              <Label for="players" sm={3}>{NUMBER_OF_PLAYERS_FORM_LABEL}</Label>
+              <Col sm={9}>
                 <Input type="select" name="players" id="players" onChange={e => this.onPlayersUpdated(e)} value={this.state.players}>
                   <option>3</option>
                   <option>4</option>
@@ -145,32 +159,32 @@ class Create extends React.Component {
             <hr />
             {Array(this.state.players).fill(0).map((v, i) => 
               <FormGroup row key={i}>
-                <Label for={`p${i}`} sm={2}>Name</Label>
-                <Col sm={10}>
+                <Label for={`p${i}`} sm={3}>{PLAYER_NAME_FORM_LABEL}</Label>
+                <Col sm={9}>
                   <Input autoComplete={"off"} type="text" invalid={_.isEmpty(this.state.names[i])} name={`p${i}`} id={`p${i}`} onChange={e => this.onNameUpdated(i, e)} value={this.state.names[i]} />
-                  <FormFeedback>The name cannot be empty</FormFeedback>
+                  <FormFeedback>{NON_EMPTY_NAME_MESSAGE}</FormFeedback>
                 </Col>
               </FormGroup>
             )}
             <hr />
             <FormGroup row>
-              <Label for="model" sm={2}>Model</Label>
-              <Col sm={10}>
+              <Label for="model" sm={3}>{MODEL_FORM_LABEL}</Label>
+              <Col sm={9}>
                 <Input type="file" name="model" id="model" onChange={this.readFile} />
                 <FormText color="muted">
-                  Select the JSON model produced by <a target="_blank" rel="noopener noreferrer" href="https://docs.threatdragon.org/">Threat Dragon</a>.
+                  {SELECT_MODEL_MESSAGE} <a target="_blank" rel="noopener noreferrer" href="https://docs.threatdragon.org/">Threat Dragon</a>.
                 </FormText>
                 <FormText color="muted">
-                  Or download a <a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/mike-goodwin/owasp-threat-dragon-demo/master/ThreatDragonModels/Demo%20Threat%20Model/Demo%20Threat%20Model.json">sample model</a> to try it out.
+                  {DOWNLOAD_DEMO_MODEL_MESSAGE} <a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/mike-goodwin/owasp-threat-dragon-demo/master/ThreatDragonModels/Demo%20Threat%20Model/Demo%20Threat%20Model.json">sample model</a>, {TO_TRY_OUT_MESSAGE}
                 </FormText>
               </Col>
             </FormGroup>
             <hr />
-            <Button block size="lg" color="warning" disabled={this.state.creating || !this.isFormValid()} onClick={this.createGame}>Proceed</Button>
+            <Button block size="lg" color="warning" disabled={this.state.creating || !this.isFormValid()} onClick={this.createGame}>{PROCEED_BUTTON_TEXT}</Button>
           </Form>
           <hr />
           <small className="text-muted">
-            Players will be able to join the game with the links that are generated after you proceed.
+            {HOW_PLAYERS_WILL_JOIN_MESSAGE}
           </small>
         </div>
       );
@@ -178,7 +192,7 @@ class Create extends React.Component {
       linkDisplay = (
         <div>
           <div className="text-center text-muted">
-            <p>The following links should be distributed to the players respectively.</p>
+            <p>{DISTRIBUTE_LINKS_AMONG_PLAYERS_MESSAGE}</p>
           </div>
           <Table>
             <tbody>
@@ -195,7 +209,7 @@ class Create extends React.Component {
           <hr />
           <div className="text-center">
             <small className="text-muted">
-              These links are unique for each player and would allow them to join the game.
+              {LINKS_ARE_UNIQUE_MESSAGE}
             </small>
           </div>
         </div>
