@@ -14,6 +14,11 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
+    - task: CmdLine@2
+      inputs:
+        script: 'sed -i -e "s/REACT_APP_LANGUAGE/$(LANGUAGE)/g" $(System.DefaultWorkingDirectory)/**/.env'
+        failOnStderr: true
+      
     - task: Docker@2
       displayName: Build an image
       inputs:
@@ -21,6 +26,8 @@ stages:
         command: buildAndPush
         Dockerfile: ./Dockerfile
         containerRegistry: preagendamiento-cr
+
+
 
 - stage: Deploy_Dev
   displayName: Deploy Dev
