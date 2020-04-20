@@ -1,4 +1,6 @@
 import { STARTING_CARD } from './constants';
+const { LANGUAGE } = require('./constants');
+const { threatTypes }  = require(`../src/strings/${LANGUAGE}/threatTypes`)
 
 export function getDealtCard(G) {
   let dealtCard = "";
@@ -76,16 +78,8 @@ export function getValidMoves(cards, suit, round) {
 }
 
 export function getTypeString(type) {
-  let map = {
-    "S": "Spoofing",
-    "T": "Tampering",
-    "R": "Repudiation",
-    "I": "Information disclosure",
-    "D": "Denial of service",
-    "E": "Elevation of privilege",
-  }
-  if (type in map) {
-    return map[type];
+  if (type in threatTypes) {
+    return threatTypes[type];
   }
   return "";
 }
