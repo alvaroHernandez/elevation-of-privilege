@@ -7,7 +7,6 @@ import Footer from '../footer/footer';
 import './create.css';
 import Helmet from 'react-helmet';
 import Logo from '../logo/logo';
-import { Link } from 'react-router-dom'
 
 const { LANGUAGE } = require('../../constants');
 

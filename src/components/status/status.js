@@ -2,6 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { grammarJoin, resolvePlayerNames, resolvePlayerName, getPlayers } from '../../utils';
 
+const { LANGUAGE } = require('../../constants');
+
+const {
+  LAST_ROUND_WON_STATUS,
+  WAITING_FOR_STATUS,
+  TO_PLAY_A_CARD_STATUS,
+  PLAYER_NAME_YOU,
+  YOU_DEALT_STATUS,
+  OTHER_DEALT_STATUS,
+  TO_ADD_OR_PASS_STATUS } = require(`../../strings/${LANGUAGE}/roundStatus.js`);
+
 class Status extends React.Component {
   static propTypes = {
     playerID: PropTypes.any,
@@ -21,12 +32,12 @@ class Status extends React.Component {
       if (this.props.dealtCard === "" && this.props.G.round > 1) {
         let winnerName = resolvePlayerName(this.props.G.lastWinner, this.props.names, this.props.playerID);
         prefix = (
-          <span>Last round won by <strong>{winnerName}</strong>. </span>
+          <span>{LAST_ROUND_WON_STATUS} <strong>{winnerName}</strong>. </span>
         );
       }
 
       return (
-        <span>{prefix}Waiting for <strong>{currentPlayerName}</strong> to play a card.</span>
+        <span>{prefix}{WAITING_FOR_STATUS} <strong>{currentPlayerName}</strong> {TO_PLAY_A_CARD_STATUS}.</span>
       );
     } else if (this.props.ctx.phase === "threats") {
       let all = new Set(getPlayers(this.props.ctx.numPlayers));
@@ -36,7 +47,7 @@ class Status extends React.Component {
       let playerWhoDealt = resolvePlayerName(this.props.G.dealtBy, this.props.names, this.props.playerID);
 
       return (
-        <span><strong>{playerWhoDealt}</strong> dealt <strong>{this.props.dealtCard}</strong>, waiting for <strong>{grammarJoin(players)}</strong> to add threats or pass.</span>
+        <span><strong>{playerWhoDealt}</strong> {playerWhoDealt === PLAYER_NAME_YOU ? YOU_DEALT_STATUS : OTHER_DEALT_STATUS} <strong>{this.props.dealtCard}</strong>, {WAITING_FOR_STATUS} <strong>{grammarJoin(players)}</strong> {TO_ADD_OR_PASS_STATUS}.</span>
       );
     }
 

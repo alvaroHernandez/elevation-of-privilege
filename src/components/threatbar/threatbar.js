@@ -8,6 +8,29 @@ import { getComponentName, getTypeString } from '../../utils';
 import confirm from 'reactstrap-confirm';
 import './threatbar.css';
 
+const { LANGUAGE } = require('../../constants');
+
+export const { 
+  ADD_THREAT_BUTTON_TEXT,
+  THREAT_TITLE_FORM_LABEL,
+  THREAT_TYPE_FORM_LABEL,
+  THREAT_TYPE_NAME_SPOOFING,
+  THREAT_TYPE_NAME_TAMPERING,
+  THREAT_TYPE_NAME_REPUDIATION,
+  THREAT_TYPE_NAME_INFORMATION_DISCLOSURE,
+  THREAT_TYPE_NAME_DENIAL_OF_SERVICE,
+  THREAT_TYPE_NAME_ELEVATION_OF_PRIVILEGE,
+  THREAT_SEVERITY_LEVEL_FORM_LABEL,
+  SEVERITY_LEVEL_NAME_LOW,
+  SEVERITY_LEVEL_NAME_MEDIUM,
+  SEVERITY_LEVEL_NAME_HIGH,
+  THREAT_DESCRIPTION_FORM_LABEL,
+  THREAT_MITIGATION_FORM_LABEL,
+  SAVE_THREAT_FORM_BUTTON,
+  SAVE_AND_ADD_THREAT_FORM_BUTTON,
+  SAVE_AND_UPDATE_THREAT_FORM_BUTTON,
+  SAVING_THREAT_TIP } = require(`../../strings/${LANGUAGE}/threatBar.js`)
+
 class Threatbar extends React.Component {
   static propTypes = {
     playerID: PropTypes.any,
@@ -136,7 +159,7 @@ class Threatbar extends React.Component {
           <CardHeader>Threats for {componentName} <FontAwesomeIcon style={{float: "right"}} icon={faBolt} /></CardHeader>
           <CardBody className="threat-container">
             <Button color="primary" size="lg" block disabled={this.props.G.selectedComponent === "" || this.props.ctx.phase !== "threats" || this.props.G.passed.includes(this.props.playerID) || !this.props.active} onClick={() => this.props.moves.toggleModal()}>
-              <FontAwesomeIcon icon={faPlus} /> Add Threat
+              <FontAwesomeIcon icon={faPlus} /> {ADD_THREAT_BUTTON_TEXT}
             </Button>
             <div hidden={component !== null && component.type !== 'tm.Flow'}>
               <hr />
@@ -229,44 +252,44 @@ class Threatbar extends React.Component {
             </ModalHeader>
             <ModalBody>
               <FormGroup>
-                <Label for="title">Title</Label>
+                <Label for="title">{THREAT_TITLE_FORM_LABEL}Title</Label>
                 <Input type="text" name="title" id="title" disabled={ this.props.G.threat.owner !== this.props.playerID } autoComplete="off" value={this.state.title} onBlur={(e) => this.props.moves.updateThreat("title", e.target.value)} onChange={(e) => this.updateState("title", e.target.value)} />
               </FormGroup>
               <FormGroup>
-                <Label for="type">Threat type</Label>
+                <Label for="type">{THREAT_TYPE_FORM_LABEL}</Label>
                 <Input type="select" name="type" id="type" disabled={ this.props.G.threat.owner !== this.props.playerID } value={this.props.G.threat.type} onChange={(e) => this.props.moves.updateThreat("type", e.target.value)}>
-                  <option value="S">Spoofing</option>
-                  <option value="T">Tampering</option>
-                  <option value="R">Repudiation</option>
-                  <option value="I">Information Disclosure</option>
-                  <option value="D">Denial of Service</option>
-                  <option value="E">Elevation of Privilege</option>
+                  <option value="S">{THREAT_TYPE_NAME_SPOOFING}</option>
+                  <option value="T">{THREAT_TYPE_NAME_TAMPERING}</option>
+                  <option value="R">{THREAT_TYPE_NAME_REPUDIATION}</option>
+                  <option value="I">{THREAT_TYPE_NAME_INFORMATION_DISCLOSURE}</option>
+                  <option value="D">{THREAT_TYPE_NAME_DENIAL_OF_SERVICE}</option>
+                  <option value="E">{THREAT_TYPE_NAME_ELEVATION_OF_PRIVILEGE}</option>
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="severity">Severity</Label>
+                <Label for="severity">{THREAT_SEVERITY_LEVEL_FORM_LABEL}</Label>
                 <Input type="select" name="severity" id="severity" disabled={ this.props.G.threat.owner !== this.props.playerID } value={this.props.G.threat.severity} onChange={(e) => this.props.moves.updateThreat("severity", e.target.value)}>
-                  <option>Low</option>
-                  <option>Medium</option>
-                  <option>High</option>
+                  <option>{SEVERITY_LEVEL_NAME_LOW}</option>
+                  <option>{SEVERITY_LEVEL_NAME_MEDIUM}</option>
+                  <option>{SEVERITY_LEVEL_NAME_HIGH}</option>
                 </Input>
               </FormGroup>
               <FormGroup>
-                <Label for="description">Description</Label>
+                <Label for="description">{THREAT_DESCRIPTION_FORM_LABEL}</Label>
                 <Input type="textarea" name="description" id="description" disabled={ this.props.G.threat.owner !== this.props.playerID } style={{height: 150}} value={this.state.description} onBlur={(e) => this.props.moves.updateThreat("description", e.target.value)} onChange={(e) => this.updateState("description", e.target.value)} />
               </FormGroup>
               <FormGroup>
-                <Label for="mitigation">Mitigation</Label>
+                <Label for="mitigation">{THREAT_MITIGATION_FORM_LABEL}</Label>
                 <Input type="textarea" name="mitigation" id="mitigation" disabled={ this.props.G.threat.owner !== this.props.playerID } style={{height: 150}} value={this.state.mitigation} onBlur={(e) => this.props.moves.updateThreat("mitigation", e.target.value)} onChange={(e) => this.updateState("mitigation", e.target.value)} />
               </FormGroup>
             </ModalBody>
             <ModalFooter>
-              <Button color="success" className="mr-auto" hidden={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.saveThreat()}>Save</Button>{' '}
-              <Button color="primary" disabled={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.addOrUpdate()}>{(this.props.G.threat.new ? 'Save & Add' : 'Save & Update')}</Button>{' '}
+              <Button color="success" className="mr-auto" hidden={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.saveThreat()}>{SAVE_THREAT_FORM_BUTTON}</Button>{' '}
+              <Button color="primary" disabled={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.addOrUpdate()}>{(this.props.G.threat.new ? {SAVE_AND_ADD_THREAT_FORM_BUTTON} : {SAVE_AND_UPDATE_THREAT_FORM_BUTTON})}</Button>{' '}
               <Button color="secondary" disabled={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.props.moves.toggleModal()}>Cancel</Button>
             </ModalFooter>
             <ModalFooter hidden={ this.props.G.threat.owner !== this.props.playerID }>
-              <small className="mr-auto text-muted"><b>TIP:</b> Saving would allow other players to view your changes instantly.</small>
+              <small className="mr-auto text-muted"><b>TIP:</b> {SAVING_THREAT_TIP}</small>
             </ModalFooter>
           </Form>
         </Modal>

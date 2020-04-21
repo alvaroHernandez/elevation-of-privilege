@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React from 'react';
 export const instructions = (
 <>
     <h1>About</h1>
