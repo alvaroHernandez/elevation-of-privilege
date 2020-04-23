@@ -17,3 +17,16 @@ export const SAVE_THREAT_FORM_BUTTON = 'Save';
 export const SAVE_AND_ADD_THREAT_FORM_BUTTON = 'Save & Add';
 export const SAVE_AND_UPDATE_THREAT_FORM_BUTTON = 'Save & Update';
 export const SAVING_THREAT_TIP = 'Saving would allow other players to view your changes instantly.';
+export const THREAT_FOR_LABEL = 'Threats for';
+export const NO_THREATS_YET_MESSAGE = 'No threats identified for this component yet.';
+export const NO_EXISTING_THREATS = 'No existing threats for this component.';
+export const FLOW_DATA_ELEMENTS_TITLE = 'Flow Data Elements';
+export const UPDATE_BUTTON = 'Update';
+export const REMOVE_BUTTON = 'Remove';
+export const ADD_BUTTON = 'Add';
+export const THREAT_MESSAGE = 'Threat';
+export const BEING_VERB_TEXT = 'being';
+export const ADDED_MESSAGE = 'added';
+export const UPDATED_MESSAGE = 'update by ';
+export const NO_DATA_ELEMENTS_MESSAGE = 'No data elements defined';
+

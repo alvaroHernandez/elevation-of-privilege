@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './cards.css';
+import './cards-spanish.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import App from './App';

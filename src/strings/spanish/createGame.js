@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export const INTRODUCTION_MESSAGE = (
 <>
     <p>El juego Elevation of Privilege (EoP) es una manera fácil de comenzar y aprender sobre modelamiento de amenazas. Es un juego de cartas en el cuál desarrolladores, arquitect@s y otr@s expert@s en seguridad pueden jugar.</p>
-    <p>Para aprneder más acerca de éste juego, puedes ir a la página <Link to="/about">Acerca de</Link>.</p>
+    <p>Para aprender más acerca de éste juego, puedes ir a la página <Link to="/about">Acerca de</Link>.</p>
     <small className="text-muted">Para comenzar a jugar, selecciona el número de jugadores e ingresa sus nombres.</small>
 </>
 )

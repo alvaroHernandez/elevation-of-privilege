@@ -1,1 +1,1 @@
-export const AND_GRAMMAR_CONNECTOR = 'and';
+export const AND_GRAMMAR_CONNECTOR = ' and ';

@@ -25,13 +25,13 @@ export function resolvePlayerNames(players, names, current) {
   let resolved = [];
   for (let i=0; i<players.length; i++) {
     let c = players[i];
-    resolved.push( (parseInt(c) === parseInt(current)) ? {PLAYER_NAME_YOU} : names[c]);
+    resolved.push( (parseInt(c) === parseInt(current)) ? PLAYER_NAME_YOU : names[c]);
   }
   return resolved;
 }
 
 export function resolvePlayerName(player, names, current) {
-  return (parseInt(player) === parseInt(current)) ? {PLAYER_NAME_YOU} : names[player];
+  return (parseInt(player) === parseInt(current)) ? PLAYER_NAME_YOU : names[player];
 }
 
 export function grammarJoin(arr) {
@@ -40,7 +40,7 @@ export function grammarJoin(arr) {
   if (arr.length <= 0)
     return last;
 
-  return arr.join(', ') + {AND_GRAMMAR_CONNECTOR} + last;
+  return arr.join(', ') + AND_GRAMMAR_CONNECTOR + last;
 }
 
 export function getPlayers(count) {

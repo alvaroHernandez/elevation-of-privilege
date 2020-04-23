@@ -29,7 +29,19 @@ export const {
   SAVE_THREAT_FORM_BUTTON,
   SAVE_AND_ADD_THREAT_FORM_BUTTON,
   SAVE_AND_UPDATE_THREAT_FORM_BUTTON,
-  SAVING_THREAT_TIP } = require(`../../strings/${LANGUAGE}/threatBar.js`)
+  SAVING_THREAT_TIP,
+  THREAT_FOR_LABEL,
+  NO_THREATS_YET_MESSAGE,
+  NO_EXISTING_THREATS_MESSAGE,
+  FLOW_DATA_ELEMENTS_TITLE,
+  ADD_BUTTON,
+  UPDATE_BUTTON,
+  REMOVE_BUTTON,
+  THREAT_MESSAGE,
+  BEING_VERB_TEXT,
+  ADDED_MESSAGE,
+  UPDATED_MESSAGE,
+  NO_DATA_ELEMENTS_MESSAGE } = require(`../../strings/${LANGUAGE}/threatBar.js`)
 
 class Threatbar extends React.Component {
   static propTypes = {
@@ -156,7 +168,7 @@ class Threatbar extends React.Component {
     return (
       <div className="threat-bar" hidden={this.props.G.selectedComponent === ""}>
         <Card>
-          <CardHeader>Threats for {componentName} <FontAwesomeIcon style={{float: "right"}} icon={faBolt} /></CardHeader>
+          <CardHeader>{THREAT_FOR_LABEL} {componentName} <FontAwesomeIcon style={{float: "right"}} icon={faBolt} /></CardHeader>
           <CardBody className="threat-container">
             <Button color="primary" size="lg" block disabled={this.props.G.selectedComponent === "" || this.props.ctx.phase !== "threats" || this.props.G.passed.includes(this.props.playerID) || !this.props.active} onClick={() => this.props.moves.toggleModal()}>
               <FontAwesomeIcon icon={faPlus} /> {ADD_THREAT_BUTTON_TEXT}
@@ -164,12 +176,12 @@ class Threatbar extends React.Component {
             <div hidden={component !== null && component.type !== 'tm.Flow'}>
               <hr />
               <Card>
-                <CardHeader>Flow Data Elements</CardHeader>
+                <CardHeader>{FLOW_DATA_ELEMENTS_TITLE}</CardHeader>
                 <ListGroup flush>
                   {component !== null && Array.isArray(component.dataElements) && component.dataElements.map((val, idx) =>
                     <ListGroupItem className="thin-list-group-item" key={idx}>{val}</ListGroupItem>
                   )}
-                  {component !== null && !Array.isArray(component.dataElements) && <ListGroupItem><em>No data elements defined</em></ListGroupItem>}
+                  {component !== null && !Array.isArray(component.dataElements) && <ListGroupItem><em>{NO_DATA_ELEMENTS_MESSAGE}</em></ListGroupItem>}
                 </ListGroup>
               </Card>
             </div>
@@ -196,7 +208,7 @@ class Threatbar extends React.Component {
                         <Button block onClick={() => this.props.moves.toggleModalUpdate(val)}>
                           <FontAwesomeIcon icon={faEdit} />
                           {' '}
-                          Update
+                          {UPDATE_BUTTON}
                         </Button>
                       </Col>
                       <Col xs="6">
@@ -209,7 +221,7 @@ class Threatbar extends React.Component {
                           }>
                           <FontAwesomeIcon icon={faTrash} />
                           {' '}
-                          Remove
+                          {REMOVE_BUTTON}
                         </Button>
                       </Col>
                     </Row>
@@ -217,7 +229,7 @@ class Threatbar extends React.Component {
                 </Collapse>
               </Card>
             )}
-            {(identifiedThreats.length <= 0) && <em className="text-muted">No threats identified for this component yet.</em>}
+            {(identifiedThreats.length <= 0) && <em className="text-muted">{NO_THREATS_YET_MESSAGE}</em>}
             <hr />
             {threats.map((val, idx) =>
               <Card key={idx}>
@@ -238,21 +250,21 @@ class Threatbar extends React.Component {
                 </Collapse>
               </Card>
             )}
-            {(threats.length <= 0) && <em className="text-muted">No existing threats for this component.</em>}
+            {(threats.length <= 0) && <em className="text-muted">{NO_EXISTING_THREATS_MESSAGE}</em>}
           </CardBody>
         </Card>
         <Modal isOpen={this.props.G.threat.modal}>
           <Form>
             <ModalHeader toggle={() => this.props.moves.toggleModal()} style={{width: "100%"}}>
-              {(this.props.G.threat.new ? 'Add' : 'Update')} Threat
+              {(this.props.G.threat.new ? ADD_BUTTON : UPDATE_BUTTON)} {THREAT_MESSAGE}
               {' '}
               &mdash;
               {' '}
-              <small className="text-muted">being {(this.props.G.threat.new ? 'added' : 'updated')} by {this.props.names[this.props.G.threat.owner]}</small>
+              <small className="text-muted">{BEING_VERB_TEXT} {(this.props.G.threat.new ? ADDED_MESSAGE : UPDATED_MESSAGE)} {this.props.names[this.props.G.threat.owner]}</small>
             </ModalHeader>
             <ModalBody>
               <FormGroup>
-                <Label for="title">{THREAT_TITLE_FORM_LABEL}Title</Label>
+                <Label for="title">{THREAT_TITLE_FORM_LABEL}</Label>
                 <Input type="text" name="title" id="title" disabled={ this.props.G.threat.owner !== this.props.playerID } autoComplete="off" value={this.state.title} onBlur={(e) => this.props.moves.updateThreat("title", e.target.value)} onChange={(e) => this.updateState("title", e.target.value)} />
               </FormGroup>
               <FormGroup>
@@ -285,7 +297,7 @@ class Threatbar extends React.Component {
             </ModalBody>
             <ModalFooter>
               <Button color="success" className="mr-auto" hidden={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.saveThreat()}>{SAVE_THREAT_FORM_BUTTON}</Button>{' '}
-              <Button color="primary" disabled={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.addOrUpdate()}>{(this.props.G.threat.new ? {SAVE_AND_ADD_THREAT_FORM_BUTTON} : {SAVE_AND_UPDATE_THREAT_FORM_BUTTON})}</Button>{' '}
+              <Button color="primary" disabled={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.addOrUpdate()}>{(this.props.G.threat.new ? SAVE_AND_ADD_THREAT_FORM_BUTTON : SAVE_AND_UPDATE_THREAT_FORM_BUTTON)}</Button>{' '}
               <Button color="secondary" disabled={ this.props.G.threat.owner !== this.props.playerID } onClick={() => this.props.moves.toggleModal()}>Cancel</Button>
             </ModalFooter>
             <ModalFooter hidden={ this.props.G.threat.owner !== this.props.playerID }>

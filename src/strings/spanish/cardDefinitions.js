@@ -1,4 +1,4 @@
-export const definitions = {
+export let definitions = {
   "S2": "Un atacante podría interferir el puerto o socket aleatorio que el servidor normalmente usa",
   "S3": "Un atacante podría probar una credencial tras otra y no hay nada que le impida realizarlo (online o sin conexión)",
   "S4": "Un atacante puede conectarse de forma anónima, debido a que esperamos que la autenticación se realice en un nivel superior",

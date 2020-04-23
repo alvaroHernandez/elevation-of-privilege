@@ -10,6 +10,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { API_PORT } from '../../constants';
 import Footer from '../footer/footer';
 
+const { LANGUAGE } = require('../../constants');
+const { DOWNLOAD_MODEL_BUTTON_TEXT} = require(`../../strings/${LANGUAGE}/sidebar.js`);
+const { PASS_BUTTON_TEXT} = require(`../../strings/${LANGUAGE}/sidebar.js`);
+
+
 class Sidebar extends React.Component {
   static propTypes = {
     playerID: PropTypes.any,
@@ -38,7 +43,7 @@ class Sidebar extends React.Component {
           <Button block size="lg" color="success" href={`${this.apiBase}/download/${this.props.gameID}`}>
             <FontAwesomeIcon icon={faDownload} />
             {' '}
-            Download Model
+            {DOWNLOAD_MODEL_BUTTON_TEXT}
           </Button>
           <hr />
           <Leaderboard playerID={this.props.playerID} scores={this.props.G.scores} names={this.props.names} cards={getDealtCardsForPlayers(this.props.G.order, this.props.G.dealt)} />
@@ -48,7 +53,7 @@ class Sidebar extends React.Component {
               this.props.G.passed.includes(this.props.playerID) ||
               !this.props.active
             } onClick={() => { this.props.moves.pass() }}>
-              Pass
+              {PASS_BUTTON_TEXT}
           </Button>
           <DealtCard card={dealtCard} />
         </div>

@@ -1,1 +1,1 @@
-export const AND_GRAMMAR_CONNECTOR = 'y';
+export const AND_GRAMMAR_CONNECTOR = ' y ';
